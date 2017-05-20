@@ -15,7 +15,7 @@ gulp.task('connect', function() {
 });
 
 gulp.task('sass', function () {
-  return gulp.src('src/sass/styles.main.sass')
+  return gulp.src('src/sass/*.sass')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('build/css/'))
     .pipe(connect.reload());
@@ -63,7 +63,7 @@ gulp.task('movejs', function () {
 
 gulp.task('default', function () {
   gulp.start('connect','sass','pug','move','movejs'),
-	gulp.watch(['src/less/**/*.less'], ['sass']),
+	gulp.watch(['src/sass/**/*.sass'], ['sass']),
 	gulp.watch(['src/*.html'], ['pug']),
   gulp.watch(['src/templates/**/*.pug'], ['pug']),
   gulp.watch(['src/templates/data/*.json'], ['pug']),
