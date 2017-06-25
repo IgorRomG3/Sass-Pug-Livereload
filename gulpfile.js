@@ -28,14 +28,14 @@ gulp.task('sprite', function () {
   }));
   return spriteData.pipe(gulp.dest('src/img/sprite/'));
 });
- 
-gulp.task('pug', function() {  
+
+gulp.task('pug', function() {
   return gulp.src('src/templates/*.pug')
       .pipe(data(function(file) {
-            return JSON.parse(fs.readFileSync('src/templates/data/data.json'))
+            return JSON.parse(fs.readFileSync('src/templates/data/data.json'));
         }))
       .pipe(pug({
-        "pretty":true /* for desable html manafy*/
+        "pretty":true /* for desable html minify*/
       }))
       .pipe(gulp.dest('build/'))
       .pipe(connect.reload());
