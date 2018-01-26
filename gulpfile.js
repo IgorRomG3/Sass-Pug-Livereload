@@ -4,7 +4,9 @@ var gulp = require('gulp'),
   spritesmith = require('gulp.spritesmith'),
   pug = require('gulp-pug'),
   data = require('gulp-data'),
-  fs = require('fs');
+  fs = require('fs'),
+  notify = require("gulp-notify"),
+  plumber = require('gulp-plumber');
 //	cleanCSS = require('gulp-clean-css'),
 
 gulp.task('connect', function() {
@@ -16,7 +18,15 @@ gulp.task('connect', function() {
 
 gulp.task('sass', function () {
   return gulp.src('src/sass/*.sass')
-    .pipe(sass().on('error', sass.logError))
+    .pipe(plumber({
+        errorHandler: notify.onError(function(err) {
+            return {
+                title: 'SASS',
+                message: err.message
+            };
+        })
+    }))
+    .pipe(sass())
     .pipe(gulp.dest('build/css/'))
     .pipe(connect.reload());
 });
@@ -31,6 +41,14 @@ gulp.task('sprite', function () {
 
 gulp.task('pug', function() {
   return gulp.src('src/templates/*.pug')
+       .pipe(plumber({
+           errorHandler: notify.onError(function(err) {
+               return {
+                   title: 'Pug',
+                   message: err.message
+               };
+           })
+       }))
       .pipe(data(function(file) {
             return JSON.parse(fs.readFileSync('src/templates/data/data.json'));
         }))
