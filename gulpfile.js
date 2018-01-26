@@ -11,7 +11,7 @@ var gulp = require('gulp'),
 
 gulp.task('connect', function() {
   connect.server({
-    root: 'build',
+    root: 'dist',
     livereload: true
   });
 });
@@ -27,7 +27,7 @@ gulp.task('sass', function () {
         })
     }))
     .pipe(sass())
-    .pipe(gulp.dest('build/css/'))
+    .pipe(gulp.dest('dist/css/'))
     .pipe(connect.reload());
 });
 
@@ -55,28 +55,28 @@ gulp.task('pug', function() {
       .pipe(pug({
         "pretty":true /* for desable html minify*/
       }))
-      .pipe(gulp.dest('build/'))
+      .pipe(gulp.dest('dist/'))
       .pipe(connect.reload());
 });
 
 gulp.task('move', function () {
 	gulp.src('src/img/**/*.*')
-	.pipe(gulp.dest('build/img/'))
+	.pipe(gulp.dest('dist/img/'))
 	.pipe(connect.reload());
 
 });
 
 gulp.task('movejs', function () {
 	gulp.src('src/js/*.js')
-	.pipe(gulp.dest('build/js/'))
+	.pipe(gulp.dest('dist/js/'))
 	.pipe(connect.reload());
 
 });
 
 //gulp.task('minify-css', function() {
-//  return gulp.src('build/css/*.css')
+//  return gulp.src('dist/css/*.css')
 //    .pipe(cleanCSS({compatibility: 'ie8'}))
-//    .pipe(gulp.dest('build/css/*.css'));
+//    .pipe(gulp.dest('dist/css/*.css'));
 //});
 
 gulp.task('default', function () {
